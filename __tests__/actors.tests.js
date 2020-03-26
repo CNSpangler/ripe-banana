@@ -2,6 +2,7 @@ const { getActor, getActors } = require('../db/data-helpers');
 
 const request = require('supertest');
 const app = require('../lib/app');
+const Actor = require('../lib/models/Actor');
 
 describe('actor routes', () => {  
   it('creates an actor', () => {
@@ -26,6 +27,16 @@ describe('actor routes', () => {
         expect(res.body).toEqual({
           ...actor
         });
+      });
+  });
+
+  it('gets all actors', async() => {
+    const actors = await getActors();
+
+    return request(app)
+      .get('/api/v1/actors')
+      .then(res => {
+        expect(res.body).toEqual(actors);
       });
   });
 });
