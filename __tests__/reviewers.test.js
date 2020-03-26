@@ -27,4 +27,16 @@ describe('reviewer routes', () => {
         expect(res.body).toEqual(reviewer);
       });
   });
+
+  it('updates a reviewer by id', async() => {
+    const reviewer = await getReviewer();
+
+    return request(app)
+      .patch(`/api/v1/reviewers/${reviewer._id}`)
+      .send({ name: 'Miss Frizzle' })
+      .then(res => {
+        expect(res.body).toEqual(reviewer);
+      });
+
+  });
 });
