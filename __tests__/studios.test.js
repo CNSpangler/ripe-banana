@@ -38,4 +38,15 @@ describe('studio routes', () => {
         expect(res.body).toEqual(studios);
       });
   });
+
+  it('updates a studio by id', async() => {
+    const studio = await getStudio();
+
+    return request(app)
+      .patch(`api/v1/studios/${studio._id}`)
+      .send({ name: 'This Studio' })
+      .then(res => {
+        expect(res.body).toEqual(studio);
+      });
+  });
 });
