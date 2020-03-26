@@ -28,4 +28,14 @@ describe('studio routes', () => {
         });
       });
   });
+
+  it('gets all studios', async() => {
+    const studios = await getStudios();
+
+    return request(app)
+      .get('/api/v1/studios')
+      .then(res => {
+        expect(res.body).toEqual(studios);
+      });
+  });
 });
