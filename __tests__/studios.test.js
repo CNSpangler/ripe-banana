@@ -1,4 +1,4 @@
-const { getStudio } = require('../db/data-helpers');
+const { getStudio, getStudios } = require('../db/data-helpers');
 
 const request = require('supertest');
 const app = require('../lib/app');
