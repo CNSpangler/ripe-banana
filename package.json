@@ -10,7 +10,11 @@
     "start:watch": "nodemon server.js"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "./lib/models/Studio.test.js",
+      "/__tests__/studios.test.js"
+    ]
   },
   "keywords": [],
   "author": "",
