@@ -2,22 +2,8 @@ const { getActor, getActors } = require('../db/data-helpers');
 
 const request = require('supertest');
 const app = require('../lib/app');
-const mongoose = require('mongoose');
-const connect = require('../lib/utils/connect');
 
 describe('actor routes', () => {  
-  beforeAll(() => {
-    connect();
-  });
-
-  beforeEach(() => {
-    return mongoose.connection.dropDatabase();
-  });
-
-  afterAll(() => {
-    return mongoose.connection.close();
-  });
-
   it('creates an actor', () => {
     return request(app)
       .post('/api/v1/actors')
@@ -47,7 +33,20 @@ describe('actor routes', () => {
     return request(app)
       .get('/api/v1/actors')
       .then(res => {
-        expect(res.body).toEqual(actors);
+        actors.forEach(actor => {
+          expect(res.body).toContainEqual({
+            _id: actor._id,
+            name: actor.name
+          });
+        });
       });
   });
 });
+
+// .then(res => {
+//   studios.forEach(studio => {
+//     expect(res.body).toContainEqual({
+//       _id: studio._id,
+//       name: studio.name
+//     });
+
