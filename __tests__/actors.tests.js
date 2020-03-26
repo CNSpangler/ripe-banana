@@ -42,11 +42,3 @@ describe('actor routes', () => {
       });
   });
 });
-
-// .then(res => {
-//   studios.forEach(studio => {
-//     expect(res.body).toContainEqual({
-//       _id: studio._id,
-//       name: studio.name
-//     });
-
