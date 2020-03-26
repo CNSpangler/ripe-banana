@@ -43,7 +43,7 @@ describe('studio routes', () => {
     const studio = await getStudio();
 
     return request(app)
-      .patch(`api/v1/studios/${studio._id}`)
+      .patch(`/api/v1/studios/${studio._id}`)
       .send({ name: 'This Studio' })
       .then(res => {
         expect(res.body).toEqual(studio);
