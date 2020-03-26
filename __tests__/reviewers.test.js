@@ -17,4 +17,14 @@ describe('reviewer routes', () => {
         });
       });
   });
+
+  it('gets a reviewer by id', async() => {
+    const reviewer = await getReviewer();
+
+    return request(app)
+      .get(`/api/v1/${reviewer._id}`)
+      .then(res => {
+        expect(res.body).toEqual(reviewer);
+      });
+  });
 });
