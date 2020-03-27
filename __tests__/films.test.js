@@ -93,6 +93,14 @@ describe('film routes', () => {
               name: actor.name
             }
           }],
+          reviews: [{
+            _id: film.reviewId,
+            rating: expect.any(Number),
+            review: expect.any(String),
+            reviewer: {
+              _id: film.reviewId.reviewerId
+            }
+          }],
           __v: 0
         });
       });
