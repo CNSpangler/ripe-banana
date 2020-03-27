@@ -1,45 +1,52 @@
-const { getFilm, getFilms } = require('../db/data-helpers');
+const { getStudio, getStudios, getActor, getActors } = require('../db/data-helpers');
 
 const request = require('supertest');
 const app = require('../lib/app');
 
+
 describe('film routes', () => {  
-  it('creates a film', () => {
+  it('creates a film', async() => {
+
+    const studio = await getStudio();
+    const actors = await getActors();
     return request(app)
       .post('/api/v1/films')
       .send({ 
+        studioId: studio._id,
         title: 'Magic School Bus', 
-        studio: 'A Studio',
         released: 1985,
         cast: [{
           role: 'bus',
-          actor: 'Miss Frizzle'
+          actorId: actors[0]._id
         }, {
           role: 'Carlos',
-          actor: 'Carlos'
+          actorId: actors[1]._id
         }, {
           role: 'Miss Frizzle',
-          actor: 'bus'
+          actorId: actors[2]._id
         }
         ]
       })
       .then(res => {
         expect(res.body).toEqual({
-          _id: expect.any(String), 
+          _id: expect.any(String),
+          studioId: studio._id,
           title: 'Magic School Bus', 
-          studio: 'A Studio',
           released: 1985,
           cast: [{
+            _id: expect.any(String),
             role: 'bus',
-            actor: 'Miss Frizzle'
+            actorId: actors[0]._id
           }, {
+            _id: expect.any(String),
             role: 'Carlos',
-            actor: 'Carlos'
+            actorId: actors[1]._id
           }, {
+            _id: expect.any(String),
             role: 'Miss Frizzle',
-            actor: 'bus'
+            actorId: actors[2]._id
           }
-          ],         
+          ],
           __v: 0
         });
       });
