@@ -1,9 +1,6 @@
-const { getStudio, getActors, getFilms, getFilm } = require('../db/data-helpers');
-const Studio = require('../lib/models/Studio');
-
+const { getStudio, getStudios, getActor, getActors, getFilms, getFilm } = require('../db/data-helpers');
 const request = require('supertest');
 const app = require('../lib/app');
-
 
 describe('film routes', () => {  
   it('creates a film', async() => {
@@ -55,11 +52,12 @@ describe('film routes', () => {
 
   it('gets all films', async() => {
     const films = await getFilms();
+    const studios = await getStudios();
 
     return request(app)
       .get('/api/v1/films')
       .then(res => {
-        films.forEach(film => {
+        films.forEach(async film => {
           expect(res.body).toContainEqual({
             _id: film._id,
             title: film.title,
@@ -67,7 +65,7 @@ describe('film routes', () => {
             studioId: {
               _id: film.studioId,
               name: expect.any(String)
-            }
+            },
           });
         });
       });
@@ -75,11 +73,29 @@ describe('film routes', () => {
 
   it('gets a film by id', async() => {
     const film = await getFilm();
+    const actor = await getActor({ _id: film.cast[0].actorId });
 
     return request(app)
       .get(`/api/v1/films/${film._id}`)
       .then(res => {
-        expect(res.body).toEqual(film);
+        expect(res.body).toEqual({
+          _id: film._id,
+          title: film.title,
+          released: film.released,
+          studioId: {
+            _id: film.studioId,
+            name: expect.any(String)
+          },
+          cast: [{
+            _id: film.cast[0]._id,
+            role: film.cast[0].role,
+            actorId: {
+              _id: film.cast[0].actorId,
+              name: actor.name
+            }
+          }],
+          __v: 0
+        });
       });
   });
 });

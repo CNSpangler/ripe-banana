@@ -32,7 +32,7 @@ module.exports = async({ studiosToCreate = 10, actorsToCreate = 10, reviewersToC
     released: chance.year(),
     cast: [{
       role: chance.animal(),
-      actor: chance.pickone(actors)._id
+      actorId: chance.pickone(actors)._id
     }]
   })));
 };
