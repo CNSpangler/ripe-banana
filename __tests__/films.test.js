@@ -1,4 +1,4 @@
-const { getStudio, getStudios, getActor, getActors } = require('../db/data-helpers');
+const { getStudio, getActors, getFilms, getFilm } = require('../db/data-helpers');
 const Studio = require('../lib/models/Studio');
 
 const request = require('supertest');
@@ -62,4 +62,6 @@ describe('film routes', () => {
         expect(res.body).toEqual(films);
       });
   });
+
+  
 });
