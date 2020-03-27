@@ -2,10 +2,10 @@ const Studio = require('../lib/models/Studio');
 const Actor = require('../lib/models/Actor');
 const Reviewer = require('../lib/models/Reviewer');
 const Film = require('../lib/models/Film');
+const Review = require('../lib/models/Review');
 const chance = require('chance').Chance();
 
-// specifying the number of tweets to create with our seed function
-module.exports = async({ studiosToCreate = 10, actorsToCreate = 10, reviewersToCreate = 10, filmsToCreate = 10 } = {}) => {
+module.exports = async({ studiosToCreate = 10, actorsToCreate = 10, reviewersToCreate = 10, filmsToCreate = 10, reviewsToCreate = 10 } = {}) => {
   const studios = await Studio.create([...Array(studiosToCreate)].map(() => ({
     name: chance.name(),
     address: {
@@ -34,5 +34,12 @@ module.exports = async({ studiosToCreate = 10, actorsToCreate = 10, reviewersToC
       role: chance.animal(),
       actorId: chance.pickone(actors)._id
     }]
+  })));
+
+  await Review.create([...Array(reviewsToCreate)].map(() => ({
+    rating: chance.integer({ min: 1, max: 5 }),
+    reviewerId: chance.pickone(reviewers)._id,
+    review: chance.sentence(),
+    filmId: chance.pickone(films).id
   })));
 };
