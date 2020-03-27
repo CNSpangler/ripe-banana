@@ -23,7 +23,12 @@ describe('studio routes', () => {
       .get(`/api/v1/studios/${studio._id}`)
       .then(res => {
         expect(res.body).toEqual({
-          ...studio
+          ...studio,
+          films: [{
+            _id: expect.any(String),
+            studioId: studio._id,
+            title: expect.any(String)
+          }]
         });
       });
   });
