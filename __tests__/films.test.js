@@ -1,4 +1,4 @@
-const { getStudio, getStudios, getActor, getActors, getFilms, getFilm } = require('../db/data-helpers');
+const { getStudio, getActor, getActors, getFilms, getFilm } = require('../db/data-helpers');
 const request = require('supertest');
 const app = require('../lib/app');
 
@@ -52,7 +52,6 @@ describe('film routes', () => {
 
   it('gets all films', async() => {
     const films = await getFilms();
-    const studios = await getStudios();
 
     return request(app)
       .get('/api/v1/films')
