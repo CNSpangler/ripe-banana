@@ -65,8 +65,8 @@ describe('film routes', () => {
             title: film.title,
             released: film.released,
             studioId: {
-              _id: film.studioId
-              // name: film.studioId.name
+              _id: film.studioId,
+              name: expect.any(String)
             }
           });
         });
