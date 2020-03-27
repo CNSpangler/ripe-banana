@@ -18,6 +18,16 @@ describe('reviewer routes', () => {
       });
   });
 
+  it('gets all reviewers', async() => {
+    const reviewers = await getReviewers();
+
+    return request(app)
+      .get('/api/v1/reviewers')
+      .then(res => {
+        expect(res.body).toEqual(reviewers);
+      });
+  });
+
   it('gets a reviewer by id', async() => {
     const reviewer = await getReviewer();
 
