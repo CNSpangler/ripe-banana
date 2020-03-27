@@ -64,7 +64,10 @@ describe('film routes', () => {
             _id: film._id,
             title: film.title,
             released: film.released,
-            studioId: film.studioId
+            studio: {
+              _id: film.studioId._id,
+              name: film.studioId.name
+            }
           });
         });
       });

@@ -35,11 +35,4 @@ module.exports = async({ studiosToCreate = 10, actorsToCreate = 10, reviewersToC
       actor: chance.pickone(actors)._id
     }]
   })));
-
-  // const genres = ['Science Fiction', 'Fantasy', 'Non-Fiction', 'YA', 'Horror', 'Romance'];
-  // await Book.create([...Array(booksToCreate)].map(() => ({
-  //   authorId: chance.pickone(authors)._id,
-  //   title: chance.sentence(),
-  //   genre: chance.pickone(genres),
-  // })));
 };
