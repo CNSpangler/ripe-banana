@@ -31,7 +31,7 @@ describe('review routes', () => {
     const reviews = await getReviews();
 
     return request(app)
-      .get('/api/vi/reviews')
+      .get('/api/v1/reviews')
       .then(res => {
         expect(res.body).toEqual(reviews);
       });
