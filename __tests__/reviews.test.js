@@ -1,4 +1,4 @@
-const { getReview, getReviews } = require('../db/data-helpers');
+const { getReview, getReviews, getReviewer, getFilm } = require('../db/data-helpers');
 const request = require('supertest');
 const app = require('../lib/app');
 
@@ -17,6 +17,7 @@ describe('review routes', () => {
       })
       .then(res => {
         expect(res.body).toEqual({
+          _id: expect.any(String),
           rating: 3,
           reviewerId: reviewer._id,
           review: 'Witpevze mappos isoletu fo res bi geow pofin mu rupoho revzi utva ne.',
