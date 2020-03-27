@@ -26,10 +26,15 @@ module.exports = async({ studiosToCreate = 10, actorsToCreate = 10, reviewersToC
     company: chance.string()
   })));
 
-  const films = await Film.create([...Array(filmsToCreate)].map(() => {
-    
-  })
-  )
+  const films = await Film.create([...Array(filmsToCreate)].map(() => ({
+    title: chance.string(),
+    studio: chance.pickone(studios),
+    released: chance.year(),
+    cast: [{
+      role: chance.animal(),
+      actor: chance.pickone(actors)
+    }]
+  })));
 
   // const genres = ['Science Fiction', 'Fantasy', 'Non-Fiction', 'YA', 'Horror', 'Romance'];
   // await Book.create([...Array(booksToCreate)].map(() => ({
