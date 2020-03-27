@@ -27,7 +27,6 @@ describe('studio routes', () => {
           ...studio,
           films: films.map(film => ({
             _id: film._id,
-            studioId: film.studioId,
             title: film.title,
             __v: 0
           }))
