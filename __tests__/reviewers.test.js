@@ -35,8 +35,10 @@ describe('reviewer routes', () => {
       .patch(`/api/v1/reviewers/${reviewer._id}`)
       .send({ name: 'Miss Frizzle' })
       .then(res => {
-        expect(res.body).toEqual(reviewer);
+        expect(res.body).toEqual({ 
+          ...reviewer,
+          name: 'Miss Frizzle'
+        });
       });
-
   });
 });
