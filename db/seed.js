@@ -1,10 +1,11 @@
 const Studio = require('../lib/models/Studio');
 const Actor = require('../lib/models/Actor');
 const Reviewer = require('../lib/models/Reviewer');
+const Film = require('../lib/models/Film');
 const chance = require('chance').Chance();
 
 // specifying the number of tweets to create with our seed function
-module.exports = async({ studiosToCreate = 10, actorsToCreate = 10, reviewersToCreate = 10 } = {}) => {
+module.exports = async({ studiosToCreate = 10, actorsToCreate = 10, reviewersToCreate = 10, filmsToCreate = 10 } = {}) => {
   const studios = await Studio.create([...Array(studiosToCreate)].map(() => ({
     name: chance.name(),
     address: {
@@ -23,8 +24,12 @@ module.exports = async({ studiosToCreate = 10, actorsToCreate = 10, reviewersToC
   const reviewers = await Reviewer.create([...Array(reviewersToCreate)].map(() => ({
     name: chance.name(),
     company: chance.string()
-  }))
-  );
+  })));
+
+  const films = await Film.create([...Array(filmsToCreate)].map(() => {
+    
+  })
+  )
 
   // const genres = ['Science Fiction', 'Fantasy', 'Non-Fiction', 'YA', 'Horror', 'Romance'];
   // await Book.create([...Array(booksToCreate)].map(() => ({
