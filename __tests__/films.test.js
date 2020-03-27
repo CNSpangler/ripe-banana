@@ -52,4 +52,14 @@ describe('film routes', () => {
         });
       });
   });
+
+  it('gets all films', async() => {
+    const films = await getFilms();
+
+    return request(app)
+      .get('/api/v1/films')
+      .then(res => {
+        expect(res.body).toEqual(films);
+      });
+  });
 });
