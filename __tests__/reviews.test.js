@@ -26,4 +26,14 @@ describe('review routes', () => {
         });
       });
   });
+
+  it('gets all reviews', async() => {
+    const reviews = await getReviews();
+
+    return request(app)
+      .get('/api/vi/reviews')
+      .then(res => {
+        expect(res.body).toEqual(reviews);
+      });
+  });
 });
