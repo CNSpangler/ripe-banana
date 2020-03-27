@@ -1,4 +1,5 @@
 const { getStudio, getStudios, getActor, getActors } = require('../db/data-helpers');
+const Studio = require('../lib/models/Studio');
 
 const request = require('supertest');
 const app = require('../lib/app');
@@ -6,9 +7,9 @@ const app = require('../lib/app');
 
 describe('film routes', () => {  
   it('creates a film', async() => {
-
     const studio = await getStudio();
     const actors = await getActors();
+
     return request(app)
       .post('/api/v1/films')
       .send({ 
