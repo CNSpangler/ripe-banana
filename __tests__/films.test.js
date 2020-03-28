@@ -1,4 +1,4 @@
-const { getStudio, getActor, getActors, getFilms, getFilm, getReviews, getReviewer } = require('../db/data-helpers');
+const { getStudio, getActor, getActors, getFilms, getFilm, getReview, getReviews, getReviewer, getReviewers } = require('../db/data-helpers');
 const request = require('supertest');
 const app = require('../lib/app');
 
@@ -73,10 +73,10 @@ describe('film routes', () => {
   it('gets a film by id', async() => {
     const film = await getFilm();
     const reviewer = await getReviewer();
+    const reviewers = await getReviewers();
     const actor = await getActor({ _id: film.cast[0].actorId });
     const reviews = await getReviews({ 'reviewerId': reviewer._id });
-    // const getFilm = await getFilm();
-    // const films = await getFilms();
+    const review = getReview();
 
     return request(app)
       .get(`/api/v1/films/${film._id}`)
@@ -98,14 +98,15 @@ describe('film routes', () => {
             }
           }],
           reviews: reviews.map(review => ({
-            _id: review._id,
-            rating: review.rating,
-            review: review.review,
+            __v: 0,
+            filmId: expect.any(String),
+            _id: expect.any(String),
+            rating: expect.any(Number),
+            review: expect.any(String),
             reviewerId: {
-              _id: review.reviewerId._id,
-              name: review.reviewerId.name
+              _id: review.reviewerId,
+              name: expect.any(String)
             },
-            __v: 0
           })),
           __v: 0
         });
