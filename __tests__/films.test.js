@@ -75,7 +75,7 @@ describe('film routes', () => {
     const reviewer = await getReviewer();
     const reviewers = await getReviewers();
     const actor = await getActor({ _id: film.cast[0].actorId });
-    const reviews = await getReviews({ 'reviewerId': reviewer._id });
+    const reviews = await getReviews({ 'filmId': film._id });
     const review = getReview();
 
     return request(app)
@@ -101,10 +101,10 @@ describe('film routes', () => {
             __v: 0,
             filmId: expect.any(String),
             _id: expect.any(String),
-            rating: expect.any(Number),
-            review: expect.any(String),
+            rating: review.rating,
+            review: review.review,
             reviewerId: {
-              _id: review.reviewerId,
+              _id: expect.any(String),
               name: expect.any(String)
             },
           })),
