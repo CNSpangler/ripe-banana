@@ -30,7 +30,6 @@ describe('reviewer routes', () => {
 
   it('gets a reviewer by id', async() => {
     const reviewer = await getReviewer();
-    console.log(reviewer);
     const reviews = await getReviews({ 'reviewerId': reviewer._id });
     const films = await getFilms();
 
