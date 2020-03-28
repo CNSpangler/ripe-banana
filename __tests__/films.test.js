@@ -104,7 +104,7 @@ describe('film routes', () => {
             rating: review.rating,
             review: review.review,
             reviewerId: {
-              _id: expect.any(String),
+              _id: review.reviewerId,
               name: expect.any(String)
             },
           })),
