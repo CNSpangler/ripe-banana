@@ -1,4 +1,4 @@
-const { getReviewer, getReviewers, getReview, getReviews } = require('../db/data-helpers');
+const { getReviewer, getReviewers, getReview, getReviews, getFilms } = require('../db/data-helpers');
 
 const request = require('supertest');
 const app = require('../lib/app');
@@ -30,19 +30,26 @@ describe('reviewer routes', () => {
 
   it('gets a reviewer by id', async() => {
     const reviewer = await getReviewer();
-    const reviews = await getReviewers();
+    console.log(reviewer);
+    const reviews = await getReviews({ 'reviewerId': reviewer._id });
+    const films = await getFilms();
 
     return request(app)
       .get(`/api/v1/reviewers/${reviewer._id}`)
       .then(res => {
         expect(res.body).toEqual({
           ...reviewer,
-          reviews: [{
-            _id: expect.any(String),
-            rating: expect.any(Number),
-            review: expect.any(String)
-          }],
-          __v: 0
+          reviews: reviews.map(review => ({
+            _id: review._id,
+            rating: review.rating,
+            review: review.review,
+            reviewerId: expect.any(String),
+            filmId: {
+              _id: review.filmId,
+              title: films.find(film => film._id === review.filmId).title
+            },
+            __v: 0
+          }))
         });
       });
   });
