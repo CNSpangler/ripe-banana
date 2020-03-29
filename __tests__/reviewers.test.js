@@ -1,4 +1,4 @@
-const { getReviewer, getReviewers, getReview, getReviews, getFilms } = require('../db/data-helpers');
+const { getReviewer, getReviewers, getReviews, getFilms } = require('../db/data-helpers');
 
 const request = require('supertest');
 const app = require('../lib/app');

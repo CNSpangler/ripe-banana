@@ -30,8 +30,9 @@ describe('actor routes', () => {
             _id: film._id,
             title: film.title,
             released: film.released,
-            __v: 0
-          }))
+            cast: film.cast
+          })),
+          __v: 0,
         });
       });
   });
